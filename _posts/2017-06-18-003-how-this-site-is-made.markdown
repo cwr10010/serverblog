@@ -65,7 +65,7 @@ This alters the .travis.yml so the file will be decrypted on build time. But we 
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site <username>@<domain>:/path/to/site
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site <username>@<domain.name>:/path/to/site
   on:
     branch: master
 {% endhighlight %}
@@ -82,11 +82,11 @@ before_deploy:
 
 What do we do here? First we decrypt the key file with command line in the before_build section. But we write the output to the /tmp directory to prevent jekyll to ever publish this file to the site. The key file is private and should always be. Second we load the ssh agent with its current keys and load the decrypted key file. As we set up the decryption before deployment we should remove the section before_build now.
 
-With this setup we can connect to our server - almost. We just need to add the public key file to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server.
+With this setup we can connect to our server - almost. We just need to add the public key file to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server. But wait! The Travis-CI build agent wants us to interactively acknowledge the fingerprint of our server. This is impossible for us! So how do we do? Travis-CI helps us here again. Another beta feature is the addon `ssh_known_hosts`. We add that to the .travis.yml.
 
 {% highlight yaml %}
-deploy:
- script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site <username>@<domain>:/path/to/site
+addons:
+  ssh_known_hosts: <domain.name>
  {% endhighlight %}
 
 Finally we should delete the private key from the tmp folder and remove the key from the ssh agent. Both should stay there as short as possible.
@@ -103,7 +103,7 @@ server {
         listen XXX.XXX.XXX.XXX:80;
         root /path/to/site/_site
         index index.html;
-        server_name domain.name;
+        server_name <domain.name>;
         location / {
                 try_files $uri $uri/ =404;
         }
