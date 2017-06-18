@@ -1,4 +1,7 @@
 language: ruby
 rvm:
- - 2.2
+- 2.2
 script: bundle exec jekyll build
+before_install:
+- openssl aes-256-cbc -K $encrypted_efb9211739b3_key -iv $encrypted_efb9211739b3_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
