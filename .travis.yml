@@ -12,6 +12,9 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site cwrosede@cwrose.de:subdomains/serverblog/httpdocs
+  script: rsync -e "ssh -o StrictHostKeyChecking=no" -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site cwrosede@cwrose.de:subdomains/serverblog/httpdocs
   on:
     branch: master
+after_deploy:
+- ssh-add -d
+- rm /tmp/deploy_rsa
