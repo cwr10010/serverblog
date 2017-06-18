@@ -6,7 +6,7 @@ categories: webserver jekyll
 ---
 This is the third posting on this blog already. But how do I actually tame this thing? To make it clear, this is no Wordpress. The web server delivers static files. No PHP, Python, Ruby or what-so-ever involved on serverside. But I don't like writing plain HTML and I am no web designer.
 
-Some weeks ago my fiancier came across some static web site generators. One of them which is [Jekyll][jekyll]{:target="_blank"} is involved here. Jekyll is based on Ruby which caused some doubts in me weather this tool might be of use or not. I have my troubles with this language. But as using Jekyll as a tool in the first place I gave it a try. And what to say? It is pretty nice! You do write files as markdown or many other markups like textile and even org-mode.
+Some weeks ago my fiancier came across some static web site generators. One of them which is [Jekyll][jekyll]{:target="_blank"} is involved here. Jekyll is based on Ruby which caused some doubts in me weather this tool might be of use or not. I have my troubles with this language. But as I am using Jekyll as a tool in the first place I gave it a try. And what should I say? It is pretty nice! You do write files as markdown or many other markups like textile and even org-mode.
 
 So let us install this.
 
@@ -37,7 +37,7 @@ script: bundle exec jekyll build
 
 To make this even sweeter we now can see when the build fails. Via rake the shell process just died and did not tell bundler that it failed. There is rake in between, remember? Now we call jekyll directly via bundler. So now we have the possibility to build the website automatically. But how can I deploy that on my server? The first thing that comes into the mind of a unix admin is rsync. But I do not want the build server to access my server in an insecure fashion. Rsync offers the possibility to send the data via a ssh tunnel. But this requires either username and password or a public/private keypair. The first is out of question. I will never give a valid username and password to a system that I don't know.
 
-So we need to do that with the key pair. But for that I need a private key file on the build server, right? And this has to be there on any build server when I run the upload command. The only way to do that is to provide the key file in the github repo. To protect that file from being read Travis-CI has another nifty feature. You can encrypt files and decrypt them later on the build server. All you need on your system is the key pair and a tool from the Travis-CI guys.
+So we need to do that with the key pair. But for that I need a private key file on the build server, right? And this has to be there on any build server when I run the upload command. The only way to do that is to provide the key file in the github repo. To protect that private key file from being read by anybody out there Travis-CI has another nifty feature. You can encrypt files and decrypt them later on the build server. All you need on your system is the key pair and a tool from the Travis-CI guys.
 
 First let us generate the keyfiles
 {% highlight sh %}
@@ -80,9 +80,9 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 {% endhighlight %}
 
-What do we do here? First we decrypt the keyfile with command line in the before_build section. But we write the output to the /tmp directory to prevent jekyll to ever publish this file to the site. The key file is private and should always be. Second we load the ssh agent with its current keys and load the decrypted keyfile. As we set up the decryption before deployment we should remove the section before_build now.
+What do we do here? First we decrypt the key file with command line in the before_build section. But we write the output to the /tmp directory to prevent jekyll to ever publish this file to the site. The key file is private and should always be. Second we load the ssh agent with its current keys and load the decrypted key file. As we set up the decryption before deployment we should remove the section before_build now.
 
-With this setup we can connect to our server - almost. We just need to add the public keyfile to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server. But wait! The Travis-CI build agent wants us to interactively acknowledge the fingerprint of our server. This is impossible for us! So how do we do? Easiest is to deactivate the check. So we do. But keep in mind, you should never do that if you transmit private data. You open gates for men in the middle attacs! Here it is just some static files that will later be available via the web anyway.
+With this setup we can connect to our server - almost. We just need to add the public key file to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server. But wait! The Travis-CI build agent wants us to interactively acknowledge the fingerprint of our server. This is impossible for us! So how do we do? Easiest is to deactivate the check. So we do. But keep in mind, you should never do that if you transmit private data. You open gates for men in the middle attacs! Here it is just some static files that will later be available via the web anyway.
 
 {% highlight yaml %}
 deploy:
