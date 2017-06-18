@@ -30,4 +30,8 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - deploy_rsa.enc
+  - Rakefile
+  - README.md
+  - LICENSE
   - vendor
