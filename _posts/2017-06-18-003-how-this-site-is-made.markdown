@@ -82,11 +82,11 @@ before_deploy:
 
 What do we do here? First we decrypt the key file with command line in the before_build section. But we write the output to the /tmp directory to prevent jekyll to ever publish this file to the site. The key file is private and should always be. Second we load the ssh agent with its current keys and load the decrypted key file. As we set up the decryption before deployment we should remove the section before_build now.
 
-With this setup we can connect to our server - almost. We just need to add the public key file to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server. But wait! The Travis-CI build agent wants us to interactively acknowledge the fingerprint of our server. This is impossible for us! So how do we do? Easiest is to deactivate the check. So we do. But keep in mind, you should never do that if you transmit private data. You open gates for men in the middle attacs! Here it is just some static files that will later be available via the web anyway.
+With this setup we can connect to our server - almost. We just need to add the public key file to the authorized_keys file of the user on our server. This should make the system work. We now can deploy to the web server.
 
 {% highlight yaml %}
 deploy:
- script: rsync -e "ssh -o StrictHostKeyChecking=no" -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site <username>@<domain>:/path/to/site
+ script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site <username>@<domain>:/path/to/site
  {% endhighlight %}
 
 Finally we should delete the private key from the tmp folder and remove the key from the ssh agent. Both should stay there as short as possible.

@@ -2,7 +2,7 @@ language: ruby
 rvm:
 - 2.2
 script: bundle exec jekyll build
-gitaddons:
+addons:
   ssh_known_hosts: cwrose.de
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_efb9211739b3_key -iv $encrypted_efb9211739b3_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -12,7 +12,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -e "ssh -o StrictHostKeyChecking=no" -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site cwrosede@cwrose.de:subdomains/serverblog/httpdocs
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/_site cwrosede@cwrose.de:subdomains/serverblog/httpdocs
   on:
     branch: master
 after_deploy:
