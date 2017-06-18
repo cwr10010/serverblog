@@ -19,7 +19,7 @@ Next we create a new  project:
 $ jekyll new my_project
 {% endhighlight %}
 
-This creates a project skeleton we can work on. To dive deeper I refer to the [documentation][jekyll-doc]{:target="_blank"} of jekyll. Just for starters you can add new blog posts just by adding files with the name pattern `<yyyy>-<mm>-<dd>-name.markupext to the `_post` directory
+This creates a project skeleton we can work on. To dive deeper I refer to the [documentation][jekyll-doc]{:target="_blank"} of jekyll. Just for starters you can add new blog posts just by adding files with the name pattern `<yyyy>-<mm>-<dd>-name.markupext` to the `_post` directory
 
 As I am a developer and admin I want the result to be deployed safely but also automatically onto my server. Said and done, right? Not quiet. To have a little playground for boring weekends I decided to store the project on github and use [Travis-CI][travis-ci]{:target="_blank"} as my continuous integration system of choice.
 
