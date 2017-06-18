@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "First Post"
+date:   2017-06-18 06:38:00 +0200
+categories: general server
+---
+As an administrator you always have a problem to solve. You want to provide services with highest possible availability but on the other hand you also don't want to spend to much time managing your infrastructure as there other things in live that are more beautiful.
+
+In this blog I want to provide a collection of stories I went through to solve my problems. Years ago I used to be an administrator of a bunch of file services. As years went by and I left university I changed my profession to a software developer but I do still manage some servers here and there. There is my internet server that also serves this blog besides other domains. There is my home server and finally a server for some friends who drive a forum for photo nerds.
+
+The web server is hosted at [Hetzner][hetzner]{:target="_blank"} and runs [Debian][debian]{:target="_blank"}, currently Jessie, but I plan to update to Stretch. My web server has always been Debian as I prefer the exiting unexcitingness of this Linux distribution. It runs very stable and I rarely run into trouble. And if I do it is most of the time me doing something wrong. So this server serves as my mail server and web server that is responsible for some domains of mine and my fiancier. I use the widly popular combination of postfix and dovecot for mailing and the less popular nginx togehter with php-fpm for serving the websites. If I have the time I will start a series of posts describing this setup.
+
+The home server is mainly a file server. 2 years ago I bought a [HP ProLiant MicroServer Gen8][microserver]{:target="_blank"} for that. It is the smallest with the Celeron G1610T in it but fast enough for everything I need. This server runs [Ubuntu LTS][ubuntu]{:target="_blank"}, currently 16.04. File service is done with [Netatalk][netatalk]{:target="_blank"} and [Samba][samba]{:target="_blank"} and configured via LDAP and the PAM module except Samba, but this is a different story.
+
+Last but not least the forum server. It is hosted at [Strato][strato]{:target="_blank"} and just serves the domains of the photo forum. It also runs Ubuntu 16.04 and is managed via Plesk for my friends needs. It is the server I have to do least. This used to be different when we had faulty hardware and I was busy restarting the server on a weekly basis. Maybe I will have some time to write more about it another day.
+
+So here I start my handbook and brain dump to help me stay out of trouble later and help others.
+
+[hetzner]: https://www.hetzner.de
+[debian]: https://www.debian.org
+[microserver]: https://www.hpe.com/de/de/product-catalog/servers/proliant-servers/pip.hpe-proliant-microserver-gen8.5379860.html
+[ubuntu]: https://www.ubuntu.com/server
+[netatalk]: http://netatalk.sourceforge.net
+[samba]:https://www.samba.org
+[strato]: https://www.strato.de
