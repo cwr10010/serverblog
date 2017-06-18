@@ -10,7 +10,7 @@ First signs of failure I had about a month ago when the drive dropped out of the
 
 As the hard drive is still under warranty I have contacted [Western Digital][wd-support]{:target="_blank"} and they will send me a replacement the next days. Thanks for this uncomplicated and unexited support! To be protected anyway I also bought a replacement at the local MediaMarkt. For better or worse it has the same model number as the one that was failing. The drive that comes back from WD will be drive number 4 in the RAID-5 then. Until now the server was running just on the minimal set of three drives. I also decided not to use hardware RAID capabilities of the server and stick to software RAID as I can swap controller more easily and I am free in designing the partitioning.
 
-To understand the procedure of replacement I have to describe the setup of the server a bit further. As I wrote the server currently houses three hard drives of 3TB each. All drives share the same GPT partition scheme except that drive 2 and three lack the uefi partition. But the partitions start at the same sector everywhere.
+To understand the procedure of replacement I have to describe the setup of the server a bit further. As I wrote the server currently houses three hard drives of 3TB each. All drives share the same GPT partition scheme except that drive two and three lack the uefi partition. But the partitions start at the same sector everywhere. By the way the failing disk is the first and the one that I boot the system from. Maybe it is time to create the boot partition on the other disks as well, just in case.
 
 {% highlight sh %}
 Number  Start   End     Size    File system     Name  Flags
@@ -20,9 +20,9 @@ Number  Start   End     Size    File system     Name  Flags
  4      14,5GB  3001GB  2986GB                  lvm   raid
  {% endhighlight %}
 
-The `uefi` boot partition contains all boot information. We do need that to allow grub to boot the kernel. The `root` partition is part of a RAID-1 volume. Until the replacement the third drive served as a spare here. After I replace the drive the spare volume will be on the first drive as drive 3 kicked in. The root partition has to be RAID-1 as grub can not boot RAID-5 volumes. Next volume is the swap volume. I do not create a raid for that and let the swap driver handle the volumes. Every disk has a 4000MB partition for that. With three drives this makes roughly 12GB.
+The `uefi` boot partition contains all boot information. We do need that to allow grub to boot the kernel. The `root` partition is part of a RAID-1 volume. Until the replacement of the first drive the third served as a spare here. After I replace the first drive the spare volume will be on this drive as drive three kicked in. The root partition has to be RAID-1 as grub can not boot RAID-5 volumes. Next volume is the swap volume. I do not create a raid for that and let the swap driver handle the volumes. Every disk has a 4000MB partition for that. With three drives this makes roughly 12GB, increased to 16GB once the fourth drive found its place.
 
-Finally  volume 4  houses the LVM partition on top of a RAID-5 volume build on all three drives. LVM provides logical volumes for `home`, `srv`, `var` and `tmp`. But as I use LVM on top of the RAID I do not need to take care of those during replacement. The rebuild of the RAID will just run on the LVM volume. By the way the failing disk is the first and the one that I boot the system from. Maybe it is time to create the boot partition on the other disks as well, just in case.
+Finally  volume 4 houses the LVM partition on top of a RAID-5 volume build on all three drives. LVM provides logical volumes for `home`, `srv`, `var` and `tmp`. But as I use LVM on top of the RAID I do not need to take care of those during replacement. The rebuild of the RAID will just run on the LVM volume.
 
 {% highlight sh %}
 $ mount | grep ext
