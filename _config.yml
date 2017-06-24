@@ -14,19 +14,23 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: ServerBLOG
+author: Carsten W. Rose
 email: mail[at]cwrose.de
 description: > # this means to ignore newlines until "baseurl:"
-  This will be my brain dump of everything that came up to me while managing my servers.
+  A brain dump of everything that came up to me while managing my servers.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://serverblog.cwrose.de" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: mod_ebm
-github_username:  cwr10010
+twitter:
+  username: mod_ebm
+github:
+  username:  cwr10010
 
 # Build settings
 markdown: kramdown
-theme: minima
-gems:
+#theme: minima
+plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 exclude:
   - Gemfile
   - Gemfile.lock
