@@ -4,9 +4,9 @@ title:  "First Post"
 date:   2017-06-18 06:38:00 +0200
 categories: general server
 ---
-As an administrator you always have a problem to solve. You want to provide services with highest possible availability but on the other hand you also don't want to spend to much time managing your infrastructure as there other things in live that are more beautiful.
+As an administrator you always have a problem to solve. You want to provide services with highest possible availability but on the other hand you also don't want to spend to much time managing your infrastructure as there are other things in live that are more beautiful. In this blog I want to provide a collection of stories I went through to solve my problems. 
 
-In this blog I want to provide a collection of stories I went through to solve my problems. Years ago I used to be an administrator of a bunch of file services. As years went by and I left university I changed my profession to a software developer but I do still manage some servers here and there. There is my internet server that also serves this blog besides other domains. There is my home server and finally a server for some friends who drive a forum for photo nerds.
+Years ago I used to be an administrator of a bunch of file services. As years went by and I left university I changed my profession to a software developer but I do still manage some servers here and there. There is my web server that also serves this blog besides other domains. There is my home server and finally a server for some friends who drive a forum for photo nerds.
 
 The web server is hosted at [Hetzner][hetzner]{:target="_blank"} and runs [Debian][debian]{:target="_blank"}, currently Jessie, but I plan to update to Stretch. My web server has always been Debian as I prefer the exiting unexcitingness of this Linux distribution. It runs very stable and I rarely run into trouble. And if I do it is most of the time me doing something wrong. So this server serves as my mail server and web server that is responsible for some domains of mine and my fiancier. I use the widly popular combination of postfix and dovecot for mailing and the less popular nginx togehter with php-fpm for serving the websites. If I have the time I will start a series of posts describing this setup.
 

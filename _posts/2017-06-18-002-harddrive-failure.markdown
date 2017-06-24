@@ -43,7 +43,7 @@ After booting the server I have copied the partition scheme from the failing dis
 $ sfdisk -d /dev/sda | sfdisk /dev/sdd
 {% endhighlight %}
 
-This works as the hard drives are of equal size (in fact they are identical in their specs). Keep in mind that smaller disks will cause trouble as the partitions will not fit on it. So you should always replace disks of the same brand and model but with different model numbers. To bad that I have got one with the same model number of the drive that was faining.
+This works as the hard drives are of equal size (in fact they are identical in their specs). Keep in mind that smaller disks will cause trouble as the partitions will not fit on it. So you should always replace disks of the same brand and model but with different model numbers. To bad that I have got one with the same model number of the drive that was failing.
 
 Next I did need to copy the `uefi` boot partition  to the new disk. I have used the `dd` tool for that:
 
