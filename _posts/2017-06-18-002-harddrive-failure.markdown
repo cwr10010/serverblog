@@ -72,6 +72,19 @@ Second add it to the swap volume:
 $ swapon /dev/sda3
 {% endhighlight %}
 
+**UPDATE** Finally as I want the swap partition to be added automatically on every reboot I need to add it in the fstab. It has to be referenced there by its UUID. To get that UUID I use blkid:
+
+{% highlight sh %}
+$ blkid /dev/sdd3
+/dev/sdd3: UUID="xxx-yyy-zzz" TYPE="swap" PARTLABEL="swap" PARTUUID="aaa-bbb-ccc"
+{% endhighlight %}
+
+Now I add a line to `/etc/fstab:
+
+{% highlight sh %}
+UUID=xxx-yyy-zzz none            swap    sw              0       0
+{% endhighlight %}
+
 This ends the work that I had to do. Pretty easy, isn't it? Of course your mileage may vary depending on the failure state of your disk. If you are unable to copy the uefi partition, you are in more serious trouble. That is also a reason why I should very soon add the uefi partition to the other drives.
 
 _FIN_.
