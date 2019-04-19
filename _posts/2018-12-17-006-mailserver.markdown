@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "Mailserver Setup"
+date:   2018-12-17 10:13:00 +0200
+categories: mailserver postfix dovecot rspamd
+---
+Luckily the my server both don't need much attention. From time to time
+I need to run some security updates. That is mostly it. The only part that I
+check more frequently is my mail server setup. In the last months the amount
+of spam being successfully delivered to my inbox increased drastically. Time
+to something about it.
+
+So I reviewd my mail system settings. Until lately I ran a pretty standard mix
+of Postfix, Dovecot and Amavis-New with Spamassassin and ClamAV. All communication is TLS protected if both partners can do so and outgoing mails are DKIM signed. On top I use Postscreen to check via DNSBL if the sender is
+malicious.
+
+First step was to increase the hit rate of Postscreen. Beside the standard Black- and Whitelists I used some that are listed at [Intra2Net Blacklist Monitor][BlacklistMonitor]{:target="_blank"}. Beside Spamhaus.org, Mailspike.net and Manitu.net I chose Uceprotect.net, Abuseat.org and DCC-Servers.net. This improved the situation drastically.
+
+{% highlight postfix %}
+postscreen_dnsbl_sites =
+[...]
+  bl.mailspike.net=127.0.0.2*10
+[...]
+  ix.dnsbl.manitu.net*2
+[...]
+  ubl.unsubscore.com*2
+  dnsbl-1.uceprotect.net*2
+  cbl.abuseat.org*2
+  dcc1.dcc-servers.net*2
+{% endhighlight %}
+
+[MailserverSetup]:https://thomas-leister.de/mailserver-debian-stretch/
+[BlacklistMonitor]: https://www.intra2net.com/en/support/antispam/index.php_sort=accuracy_order=desc.html
+[TLSConfiguration]: https://www.kuketz-blog.de/postfix-tls-konfiguration-mit-ecdsa-rsa-zertifikaten/

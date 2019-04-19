@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Compiling Netatalk on Ubuntu"
+date:   2019-04-19 17:56:00 +0200
+categories: homeserver netatalk ubuntu compile
+---
+Compiling and installing Netatalk via building Debian/Ubuntu deb packages.
+
+We need the following dependencies. libtracker is a library to make netatalk volumes searchable by Apple Spotlight.
+{% highlight sh %}
+ apt install libdb5.3 libdb5.3-dev dbus-dev libdbus-glib-1-dev \
+   libmysqlclient-dev libtracker-miner-2.0-dev
+{% endhighlight %}
+
+The following tools are required to create the deb packages
+{% highlight sh %}
+ apt install autoreconf dh-autoreconf autotools-dev dh-systemd
+{% endhighlight %}
+
+We prepare the workspace.
+{% highlight sh %}
+ mkdir netatalk-build && cd netatalk-build/
+{% endhighlight %}
+
+We get the scripts that will do the building. I have found them on [launchpad][launchpad]{:target="_blank"}.
+{% highlight sh %}
+ wget https://serverblog.cwrose.de/downloads/netatalk_3.1.11-debian-build-scripts.tar.xz
+ tar xf netatalk_3.1.11-debian-build-scripts.tar.xz
+{% endhighlight %} 
+
+Now we setup the changelog and remove the tarball md5.
+{% highlight sh %}
+ export new_upstream_version=3.1.12-ubuntu1-cro~xenial
+ dch -v ${new_upstream_version}-1 "Dummy changelog entry"
+ sed -i -e 's/^\(DEB_UPSTREAM_TARBALL_MD5\b\)/#\1/' debian/rules
+{% endhighlight %}
+
+Now it is time to build the thing.
+{% highlight sh %}
+ cd ../netatalk/netatalk-3.1.12/
+ cp ../../netatalk-build/debian .
+ cp -rp ../../netatalk-build/debian .
+ debian/rules
+ debian/rules binary
+{% endhighlight %}
+
+And the resulting packages can be installed
+{% highlight sh %}
+ dpkg -i netatalk_3.1.12-ubuntu1-cro~xenial-1_amd64.deb
+ dpkg -i libatalk18_3.1.12-ubuntu1-cro~xenial-1_amd64.deb
+{% endhighlight %}
+
+[launchpad]:https://launchpad.net/~sico/+archive/ubuntu/netatalk/+sourcefiles/netatalk/3.1.11-ubuntu1-sico2~xenial/netatalk_3.1.11-ubuntu1-sico2~xenial.debian.tar.xz
+

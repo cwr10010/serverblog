@@ -29,7 +29,7 @@ To connect my github account was pretty easy, actually it was already for some o
 language: ruby
 {% endhighlight %}
 
-Hey you might think thats all? Not yet. Travis-CI runds bundler which expects a Rakefile in the project to build that thing. Rakefiles are those ruby makefiles, fully ruby scriptable. So I created one. And as I wanted it to build the jekyll project I let rake (ruby make, got it?) exec a shell command. So here I am fiddling with this language I do not really like. But does it get better? Sure it does. Travis-CI has a new feature in which you can tell it to execute shell commands. Whait what? No Rakefile? Great! So here we go. We tell Travis-CI in the config file the following:
+Hey you might think thats all? Not yet. Travis-CI runs bundler which expects a Rakefile in the project to build that thing. Rakefiles are those ruby makefiles, fully ruby scriptable. So I created one. And as I wanted it to build the jekyll project I let rake (ruby make, got it?) exec a shell command. So here I am fiddling with this language I do not really like. But does it get better? Sure it does. Travis-CI has a new feature in which you can tell it to execute shell commands. Whait what? No Rakefile? Great! So here we go. We tell Travis-CI in the config file the following:
 
 {% highlight yaml %}
 script: bundle exec jekyll build
