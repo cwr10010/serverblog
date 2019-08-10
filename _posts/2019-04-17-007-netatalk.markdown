@@ -35,12 +35,12 @@ Now we setup the changelog and remove the tarball md5.
  sed -i -e 's/^\(DEB_UPSTREAM_TARBALL_MD5\b\)/#\1/' debian/rules
 {% endhighlight %}
 
-Now it is time to build the thing.
+Now it is time to build the thing.  DEB_BUILD_OPTIONS=openssl basically tells the build process to allow it building with ssl support.
 {% highlight sh %}
  cd ../netatalk/netatalk-3.1.12/
  cp ../../netatalk-build/debian .
  cp -rp ../../netatalk-build/debian .
- debian/rules
+ DEB_BUILD_OPTIONS=openssl debian/rules debian/rules
  debian/rules binary
 {% endhighlight %}
 
