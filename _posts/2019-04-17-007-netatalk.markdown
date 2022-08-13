@@ -26,7 +26,7 @@ We get the scripts that will do the building. I have found them on [launchpad][l
 {% highlight sh %}
  wget https://serverblog.cwrose.de/downloads/netatalk_3.1.11-debian-build-scripts.tar.xz
  tar xf netatalk_3.1.11-debian-build-scripts.tar.xz
-{% endhighlight %} 
+{% endhighlight %}
 
 Now we setup the changelog and remove the tarball md5.
 {% highlight sh %}
