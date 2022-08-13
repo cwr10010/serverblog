@@ -12,4 +12,4 @@ GRUB_CMDLINE_LINUX_DEFAULT="nomdmonddf nomdmonisw intel_iommu=off"
 
 But this did not solve the problem entirely. I had continuous problems of interrupt failures. The server all the sudden became unresponsive via network and created errors while writing to disk - something you definitely do not want on a NAS. THe final solution was to switch off VT-D in the servers BIOS. This deactivates direct access to hardware through the virtualization layer. But as I do not run VMs on that thing this is an OK solution for me. 
 
-As a ressource in the Ubuntu bug tracker this is the ticket for reference: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1970453
+As a ressource in the Ubuntu bug tracker this is the ticket for reference: [Ubuntu Bug Tracker](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1970453){:target="_blank"}{:rel="noopener noreferrer"}
