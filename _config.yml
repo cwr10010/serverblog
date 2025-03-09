@@ -20,14 +20,12 @@ description: > # this means to ignore newlines until "baseurl:"
   A brain dump of everything that came up to me while managing my servers.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://serverblog.cwrose.de" # the base hostname & protocol for your site, e.g. http://example.com
-twitter:
-  username: mod_ebm
 github:
-  username:  cwr10010
+  username: cwr10010
 
 # Build settings
 markdown: kramdown
-#theme: minima
+theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
